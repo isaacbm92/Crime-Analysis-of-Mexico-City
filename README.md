@@ -16,8 +16,32 @@ In order to accomplish this, an analysis will be carry on the data from the colo
 The expected result will be a classification of the most prone colonies to crime acts.
 
 
+### Data
+
+The following data sets will be used:
+
+* colonias_cdmx_2019.csv
+Contains the data of the colonies of each borough of the Mexico City. The last update of this data set was performed on June 6, 2019. [5]
+
+It is comprised by 1,812 records and 9 variables, listed below:
+
+  * COLONIA (Colony), text
+  * ENTIDAD (Entity), integer number
+  * Geo Point, location
+  * Geo Shape, locations
+  * CVE_ALC, integer number
+  * ALCALDIA (Borough), text
+  * CVE_COL, text
+  * SECC_COM, text
+  * SECC_PAR, text
+
+Example:
+
+![alt text]( "Colonies Data Set Example")
+
 ### References
-[1] - https://en.wikipedia.org/wiki/Mexico_City
-[2] - https://en.wikipedia.org/wiki/Crime_in_Mexico
-[3] - https://datos.cdmx.gob.mx/pages/home/
-[4] - https://en.wikipedia.org/wiki/Cuauht%C3%A9moc,_Mexico_City
+* [1] - https://en.wikipedia.org/wiki/Mexico_City
+* [2] - https://en.wikipedia.org/wiki/Crime_in_Mexico
+* [3] - https://datos.cdmx.gob.mx/pages/home/
+* [4] - https://en.wikipedia.org/wiki/Cuauht%C3%A9moc,_Mexico_City
+* [5] - https://datos.cdmx.gob.mx/explore/dataset/coloniascdmx/table/
