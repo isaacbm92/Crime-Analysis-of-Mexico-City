@@ -37,7 +37,7 @@ It is comprised by 1,812 records and 9 variables, listed below:
 
 Example:
 
-![alt text]( "Colonies Data Set Example")
+![alt text](https://github.com/iSaaC92G/Crime-Analysis-in-Mexico-City/blob/master/images/data%20sets/colonies_data_set_example.jpg "Colonies Data Set Example")
 
 ### References
 * [1] - https://en.wikipedia.org/wiki/Mexico_City
