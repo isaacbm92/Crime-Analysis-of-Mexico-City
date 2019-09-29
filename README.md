@@ -18,28 +18,28 @@ The expected result will be a classification of the most prone colonies to crime
 
 ### Data
 
-The government of Mexico City offers a website portal called "Data Portal of Mexico City [3]" where it is possible to consult, explore, and download open data of the city. For the purposes of this project, 2 datasets will be extract from this site, as described below.
+The government of Mexico City offers a website portal called "Data Portal of Mexico City [3]" where it is possible to consult, explore, and download open data of the city. For the purposes of this project, 2 datasets will be extracted from this site, as described below.
 
 * Colonies of Mexico City (colonias_cdmx_2019.csv) [5]
 Contains the territorial delimitation of the colonies of Mexico City. The last update of this data set was performed on june 6, 2019.
 
 It is comprised by 1,812 records and 9 variables, listed below:
 
-  * COLONIA (Colony), text
-  * ENTIDAD (Entity), integer number
-  * Geo Point, location
-  * Geo Shape, locations
-  * CVE_ALC, integer number
-  * ALCALDIA (Borough), text
-  * CVE_COL, text
-  * SECC_COM, text
-  * SECC_PAR, text
+    * COLONIA (Colony), text
+    * ENTIDAD (Entity), integer number
+    * Geo Point, location
+    * Geo Shape, locations
+    * CVE_ALC, integer number
+    * ALCALDIA (Borough), text
+    * CVE_COL, text
+    * SECC_COM, text
+    * SECC_PAR, text
 
 Example:
 
 ![alt text](https://github.com/iSaaC92G/Crime-Analysis-in-Mexico-City/blob/master/images/data%20sets/colonies_data_set_example.jpg "Colonies Data Set Example")
 
-* Research Folders PGJ of the Mexico City (archived, ) [6]
+* Research Folders PGJ of the Mexico City (archived) [6]
 Contains the research folders of crimes at the street level from january, 2016 to june, 2019. Because this data set is comprised by 808,871 records for all boroughs, It will be reduced to the subset of records that belong to the Cuauhtémoc borough and where the crimes took place in 2018.
 
 It is comprised by 39,431 records and 18 variables, listed below:
