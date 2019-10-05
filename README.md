@@ -1,4 +1,4 @@
-# Crime Analysis in Mexico City
+# Crime Analysis of Mexico City
 ## Analysis and classification of the Mexico City's colonies (neighbourhoods) based on their crime rates
 
 
@@ -9,7 +9,7 @@ Besides willing to know the most important places of the city, like the Historic
 
 To help solve this problem, It would be nice to count with a tool capable to tell if a particular place is under a risky zone at a given time: this tool will not only help tourists to avoid this zones, but also locals and people who needs to travel constantly accross a particular city like taxi drivers or transporters. With this tool, administrative dependencies of justice of a city as well as service providers like Uber, can bring more safety to their citizens and customers.
 
-The aim of this project is to established the foundations of this tool by answering the question "What are the most insecure colonies for a tourist to visit?."
+The aim of this project is to established the foundations of this tool by answering the question "What are the most insecure colonies for a tourist to visit in Cuauhtémoc?."
 
 In order to accomplish this, an analysis will be carry on the data from the colonies and the crimes (provided by the Data Portal of Mexico City [3]) of one of the most historic and cultural boroughs of the Mexico City, Cuauhtémoc [4], by using the Foursquare Places API to retrieve the most important venues around a given colony.
 
@@ -172,188 +172,54 @@ A succesfull call to this endpoint will result in a response containing a JSON f
 
 ### Methodology
 
-Ir order to carry out my analysis, I decided to use IBM Cloud as my analytics platform to take advantage of the following services:
+Ir order to carry out the corresponding analysis, it was decided to use IBM Cloud as the analytics platform to take advantage of the following services:
 
-- Cloud Object Storage, to store the datasets
+- Cloud Object Storage, to store the data sets as csv files and,
 - Watson Studio, to create a project with a Jupyter Notebook with a Python 3.6 kernel and the data sets
 
-After setting the work environment, I first loaded the Colonies data set to shape it and clean it in order to use it to create a map of the colonies. Fortunately the data set already contained geolocation data of each colony so I just made sure to gather only the information relative to the Cuahtemoc borough. The final subset was formed by 63 colonies.
+After setting the work environment, the Colonies data set was first loaded. By making an elementary exploratory analysis, the following things were observed:
 
-Then, by using the Foursquare Places API and the new Colonies data set, I searched for the top 10 recommended venues for each colony in a radius of 200 meters. I merged this information with the Colonies data set and created a map. These steps will then allow me to re-create this same map with the classified colonies.
+* The most popular colony is "Miguel Hidalgo"
+* The most popular borough is "Iztapalapa"
 
-With the data set of Venues per Colony, I started to shape, clean and analyze the Crimes data set, comming up with a data set of 38,235 records. So my attention was focused in two variables: the Crime Category and the Crime Colony.
+Then, this data set was shaped and cleaned to then use it to create a map of the colonies. Fortunately the data set already contained geolocation data for each colony so only the information relative to the Cuahtemoc borough was gather. The final subset was formed by 63 colonies.
 
-For the classification process, I decided to use the k-means algorithm, so I transformed the Crime data set by setting the crime categories as columns and grouping rows by colonies, calculating the mean for each crime category. By creating 6 clusters, the model determined the corresponding labels for each cluster and I use them to assign the corresponding label to Venues per Colony data set.
+By using the Foursquare Places API and the Colonies data set, the top 10 recommended venues were searched for each of the colonies in a radius of 200 meters. This information was merged with the Colonies data set and a map was created: these steps will then allow the creation of a similar map for the classified colonies.
 
-* I choosed Crime Category as my main indicator of crime because it gave a great overview of the kind of crimes commited. While the Crime variable brings a more detailed look of a crime it will require a more 
+With the data set of Venues per Colony, it was started to shape, clean and analyze the Crimes data set, comming up with a data set of 38,235 records. An exploratory analysis brought the following findings:
+
+* The most popular month for a crime to be commited is in october
+* The most commited crime is "robbery of cell phone to a passerby without violence"
+* The most popular crime category is "crime of low impact"
+* The most popular colony for a crime to be commited is in the "center"
+
+As with the previous data set, this one was shaped and cleaned.
+
+For the classification process, it was decided to use the k-means algorithm, so the Crime data set was transformed by setting the crime categories as columns and grouping rows by colonies, calculating the mean for each crime category. By creating 7 clusters, the model determined the corresponding labels for each one: this new information was merged with the Venues per Colony data set.
+
+Finally, the Venues per Colony data set was used to create a map with classfied venues (based on the classification of the colonies) by using different colors.
 
 
 ### Results
 
+17 colonies were found to be most prone to crimes in Mexico City's Cuauhtemoc boroguh. Most of them are located along the west side, with almost 15,063 crimes committed in 2018 but it's also interesting to note that 8,368 crimes were commited just around the center of the city in the same year.
+
 In the following map, venues are displayed with different colors depending on how the colony they belong was classified.
 
-[image]
+![alt text](https://github.com/iSaaC92G/Crime-Analysis-in-Mexico-City/blob/master/images/results/classified_venues.jpg "Classified Venues")
 
-In this first approximation, It was used the number of commited crimes as a factor to determined which colonies are most prone colonies to crimes. The following table shows that clusters 3 and 5 contain the highest crime rates.
+In this first approximation, it was used the number of commited crimes as a factor to determined which colonies are most prone to crimes. The following table shows that clusters 1, 3 and 4 contain the highest crime rates.
 
-[image]
+![alt text](https://github.com/iSaaC92G/Crime-Analysis-in-Mexico-City/blob/master/images/results/crime_rates_by_cluster.jpg "Crime Rates by Cluster")
 
-Finally, filtering by the model's labels, these are the colonies included in the previous clusters
+Finally, filtering by the model's labels, these are the colonies included in the mentioned clusters
 
-[image]
-
-Aditionally, these are the venues found on those colonies
-
-    * El Sauce Y La Palma "qkas"
-    * Delicias Celene
-    * Centro Arista
-    * Deportivo Cuauhtémoc
-    * Yubá
-    * BP Gasolinera Aldama
-    * Walmart Buenavista
-    * Feria de Buenavista
-    * Panda Express
-    * 61 Blues Jazz & Other Grooves
-    * Bonebreakers Dojo Central
-    * Arrachera's Grill
-    * Mecanico Jeans Centro
-    * Plaza Tlaxcoaque
-    * Domino's Pizza
-    * MÁSCARA DE LÁTEX 20 De Noviembre
-    * Fust ONE
-    * Pasta Di Roma
-    * BoneBreakers Central
-    * VegAmo
-    * Panqué de Nata Finnniiiisssimo Sabor!
-    * Café El Cordobés
-    * Ricos Tacos De Cochinita Pibil
-    * Oaxaca en México
-    * Puerto Alameda
-    * taqueria San Antonio
-    * Café Épico
-    * Centro Cultural El Cerrojo
-    * La Castellana
-    * Plaza Rio de Janeiro
-    * Helados Cometa
-    * Rosetta
-    * Abarrotes Delirio
-    * MODO Museo del Objeto del Objeto
-    * revancha
-    * Meroma
-    * Maison de Famille
-    * Galería OMR
-    * Campobaja
-    * Central Del Pueblo
-    * el mueble perfecto
-    * Oxxo
-    * El Craneo
-    * Plaza de Santa Catarina
-    * Cancino Cabrera
-    * Musica en Vinyl Roma
-    * Yakumanka By Gaston Acurio
-    * Boba Fusion Tea Bar
-    * Las Costillas De San Luis
-    * Broka
-    * Plaza Luis Cabrera
-    * Balmori
-    * Nudo Negro
-    * TINTO GRISHO
-    * Artesanías y Manualidades Calzada de Gpe.
-    * Desayunos y almuerzos "La Perla"
-    * Pulquería La Rosita
-    * Zéfiro
-    * Coox Hanal
-    * Chocolatería Mayordomo
-    * Hostería La Bota
-    * Jekemir Café
-    * Santa Clara Regina
-    * Chocolatería Mayordomo
-    * Jerónimas
-    * Ex Convento Regina Coelli
-    * Casa Serra Sucesores, S.A. de C.V.
-    * Mirador Monumento a la Revolución Mexicana
-    * Monumento a la Revolución Mexicana
-    * Terraza Timberland
-    * Revolution Square
-    * Terraza Cha Cha Chá
-    * La nueva Jauja
-    * Finca Santa VeraCruz
-    * La Cantera
-    * Frontón México
-    * Museo Nacional de la Revolución
-    * El Antiguo Edhen
-    * Ehden
-    * Café "Equis"
-    * Roldan 37
-    * Tacos Don Chano
-    * Chilli-Aquilli
-    * El Cafeto Dulceria
-    * La Peninsular
-    * Peluches Santísima
-    * Plaza Atarazanas - alhóndiga
-    * Casa De Francia
-    * Havre Cancino
-    * Maison Kayser
-    * Peluquería Urbana STUDIO
-    * California Pizza Kitchen
-    * Reforma 222
-    * DE MAR A MAR
-    * Luau
-    * IOS Offices
-    * Bellinghausen
-    * El Taquito Restaurante Taurino
-    * Tacos El Patan
-    * Aurora mexico
-    * Palacio de Hierro
-    * Jalil sabor a hogar
-    * Zuckys
-    * Sonora Grill Prime
-    * Le Bistro Palacio
-    * Corredor Salamanca
-    * Museo Soumaya Casa Guillermo Tovar De Teresa
-    * Benefit Brow Bar
-    * Café El Asturiano
-    * Fonda Los Tios
-    * Centro Histórico
-    * El Cardenal
-    * Mercaderes
-    * Casino Español
-    * Downtown México
-    * Azul Histórico
-    * Que Bo!
-    * Helados Santa Clara Cafetería
-    * Zinco Jazz Club
-    * Museo del Estanquillo
-    * Taqueria Yeshua
-    * Museo de la Luz
-    * El Castillo de la Fantasía
-    * Casa Tlaxcala
-    * Callejón De Giron
-    * Plaza de Loreto
-    * Teatro del Pueblo
-    * Ostionería Veracruz
-    * Distribuidora Nieto
-    * Finca Loreto
-    * Hamburguesas Amador
-    * Los Huaraches De Rosy
-    * Grupo CVA
-    * Los Auténticos Tacos del Paisa
-    * Barbacoa El Profe
-    * Las Baguettes De Isabela
-    * Barbacoa de horno "Toños"
-    * Bodega de Playeras Gildan
-    * Baguettes de Isabella
-    * Crazy Transfer Matriz
-    * Baguette
-    * Plaza Algarin
-    * Mercado Isabel La Católica
-    * Manufacturas Gaviota
-    * Tiangis Cultural Chpo'
+![alt text](https://github.com/iSaaC92G/Crime-Analysis-in-Mexico-City/blob/master/images/results/crime_rates_by_colony.jpg "Crime Rates by Colony")
 
 
 ### Discussion
 
-Taking into account comments and assessments of the venues can also help to improve the classification not just for colonies, but venues as well: this will required Natural Language Processing (NLP) methodologies to analyze the sentiment of such comments.
+Taking into account comments and assessments of the venues can help to improve the classification not just for colonies, but venues as well: this will required Natural Language Processing (NLP) methodologies to analyze the sentiment of such comments.
 
 Regarding the Crime data set, It would be very useful to count with a scale to tell which crimes are worse than others (applying for both Crimte Category and Crime type): that way the classification would be more precise.
 
@@ -363,11 +229,11 @@ Aditionally, the Crime data set also provides date and time information about th
 
 ### Conclusion
 
-10 colonies were found to be most prone to crimes in Mexico City's Cuauhtemoc boroguh. Most of them are located along the west side, with almost 8,176 crimes committed in 2018 but equally comparable to those committed around the center of the city, with 8,272 crimes, in the same year.
+The current analysis has showned how similar the Cuauhtemoc's colonies can be among them based on their crime activity and which of them are most prone to such activities; this information might help tourists to take better desicions about visiting a certain place by identifying these risky zones before getting into them.
 
-This suggests that crime activity is highly concentrated in the center of the city and, at this point, this seems reasonable considering for example, from a high point of view, that most of the cutural and historical places are located there. This brings the following questions:
+This analysis also indicates a high density of crime activity in the center of the city and, at this point, this seems reasonable considering for example, from a high point of view, that most of the cutural and historical places are located there but, this is just an assumption: questions like "What is the relationship between a popular place and the crime rates that sorround it?" and "What are the causes of that relationship, if it exist?" might help set the ground for further analysis.
 
-- What is the correlation between a popular place and the crime rates that sorround it? What are the causes?
+This project has answered the question initially established but, certainly, there's much room for improvement and refinement: iterating and gathering more information will lead not just to a better clasification but a better understanding of the data itself.
 
 
 ### References
